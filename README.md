@@ -1,3 +1,5 @@
+https://github.com/Tchernik0ff/web-larek-frontend.git
+
 # Проектная работа "Веб-ларек"
 
 Стек: HTML, SCSS, TS, Webpack
