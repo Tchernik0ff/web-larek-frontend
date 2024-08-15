@@ -199,6 +199,7 @@ export type TOrderTotalSummary = Pick<IOrder, 'total'>
 - setContainer(container: HTMLElement): void - устанавливает контейнер, в который будет отображаться компонент
 - setContent(): void - добавляет разметку в контейнер
 - clearContent(): void - удаляет разметку из контейнера
+- setValid(isValid: boolean): void - изменяет активность кнопки 
 
 *PS: Если я завалил работу, огромная к Вам просьба, если это возможно, хотел бы получить дополнительную итерацию чтобы разобраться все таки окончательно в документации, не хотел бы приступать к написанию кода, упуская такой важный момент.*
 
@@ -216,7 +217,7 @@ export type TOrderTotalSummary = Pick<IOrder, 'total'>
 - events: IEvents - Брокер событий 
 
 #### Класс BaseForm
-Базовый класс для форм.
+Базовый класс для форм. Расширяет абстрактный класс `Component`
 Поля класса:
 - formElement: HTMLFormElement - Ссылка на элемент формы
 - inputs: NodeListOf<HTMLInputElement> - Коллекция всех инпутов формы
@@ -227,15 +228,12 @@ export type TOrderTotalSummary = Pick<IOrder, 'total'>
 - showError(field: string, errorMessage: string): void - Отображает ошибки
 - hideError(field: string, errorMessage: string): void - Скрывает ошибки
 - submit: Function - Обрабатывает отправку формы
-- setValid(isValid: boolean): void - изменяет активность кнопки 
-
 
 #### Класс PaymentForm
 Расширяет родительский BaseForm. Предназначен для отображения формы оплаты
 
 Поля класса:
 - paymentMethod: NodeListOf<HTMLButtonElement> - коллекция кнопок оплаты
-
 
 #### Класс ProductPreview
 Расширяет класс Modal. Предназначен для отображения информации о товаре в модальном окне.
