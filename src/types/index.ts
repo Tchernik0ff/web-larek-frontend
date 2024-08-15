@@ -29,16 +29,16 @@ export interface IProductsData {
 
 ///Интерфейс объекта корзины
 export interface ICart {
-  items: TProductInCard[];
+  items: TProductInCart[];
   total: number;
-  addItem(product: TProductInCard): void; // Метод для добавления товара в корзину
+  addItem(product: TProductInCart): void; // Метод для добавления товара в корзину
   removeItem(productId: string): void; // Метод для удаления товара из корзины
   calculateTotalPrice(): number; // Метод для расчета общей стоимости 
 }
 
 // Интерфейс для элемента корзины
 export interface ICartItem {
-  product: TProductInCard;
+  product: TProductInCart;
 }
 
 // Интерфейс для формы оформления заказа
@@ -51,7 +51,7 @@ export interface IOrderForm extends IOrder{
 export type TProductPreview = Pick<IProduct, 'id' | 'image' | 'title' | 'category' | 'price'>
 
 ///Данные товара в корзине
-export type TProductInCard = Pick<IProduct, 'id' | 'title' | 'price'>
+export type TProductInCart = Pick<IProduct, 'id' | 'title' | 'price'>
 
 ///Данные товаров в массиве
 export type TOrderItems = Pick<IProduct, 'id'>
