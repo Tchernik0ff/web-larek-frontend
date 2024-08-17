@@ -243,7 +243,7 @@ export type TOrderTotalSummary = Pick<IOrder, 'total'>
 - submit: Function - Обрабатывает отправку формы
 
 #### Класс ContactsForm
-Расширяет родительский BaseForm. Предназначе для отображения формы контактных данных
+Расширяет родительский BaseForm. Предназначен для отображения формы контактных данных
 
 Поля класса:
 - contactsEmail: HTMLInputElement - инпут для ввода эмейла
