@@ -1,39 +1,39 @@
 ///Интерфейс продукта
 export interface IProduct {
   id: string;
-  description: string;
+  description: HTMLElement;
   image: string;
   title: string;
   category: string;
   price: number | null;
+  selected: boolean;
+}
+
+export interface IOrderPost {
+  id: string[],
+  total: number;
 }
 
 ///Интерфейс заказа
 export interface IOrder {
-  payment: string;
-  email: string;
-  phone: string;
-  addres: string;
-  total: number;
-  items: string[];
+  _payment: string;
+  _email: string;
+  _phone: string;
+  _addres: string;
+  _total: number;
+  _items: string[];
 }
 
 ///Интерфейс ответа с карточками от сервера
 export interface IProductsData {
-  total: number;
-  products: IProduct[];
-  preview: string | null;
-  getProductCard(productId: string): IProduct;
-  addToCart(productId: string): void; // Метод для добавления товара в корзину
+  total?: number;
+  items: IProduct[];
 }
 
 ///Интерфейс объекта корзины
 export interface ICart {
-  items: TProductInCart[];
+  items: TProductInCart[];///Переделать на один итем
   total: number;
-  addItem(product: TProductInCart): void; // Метод для добавления товара в корзину
-  removeItem(productId: string): void; // Метод для удаления товара из корзины
-  calculateTotalPrice(): number; // Метод для расчета общей стоимости 
 }
 
 // Интерфейс для элемента корзины
@@ -41,20 +41,17 @@ export interface ICartItem {
   product: TProductInCart;
 }
 
-// Интерфейс для формы оформления заказа
-export interface IOrderForm extends IOrder{
-  validateForm(): boolean;
-  submitOrder(order: IOrder): void;
+export interface TProductInCart {
+  id: string,
+  title: string,
+  price: number | null,
+  index: number
 }
 
-///Данные товара на главной, без подробного описания
-export type TProductPreview = Pick<IProduct, 'id' | 'image' | 'title' | 'category' | 'price'>
+export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
 
-///Данные товара в корзине
-export type TProductInCart = Pick<IProduct, 'id' | 'title' | 'price'>
-
-///Данные товаров в массиве
-export type TOrderItems = Pick<IProduct, 'id'>
-
-///Данные списанного баланса в модалке успешного оформленного заказа
-export type TOrderTotalSummary = Pick<IOrder, 'total'>
+export interface IApi {
+  baseUrl: string;
+  get<T>(url: string): Promise<T>;
+  post<T>(url: string, data: object, method?: ApiPostMethods): Promise<T>;
+}
