@@ -46,6 +46,8 @@ Promise.all([api.getProductCards()])
         productsData.items = data[0].items;
         events.emit('data: loaded');
      })
+     .catch(error => 
+        alert(error.message));
 
 ///Обработка события когда были получены карточки
 events.on('data: loaded', () => {
@@ -73,7 +75,7 @@ events.on('product: selected', (data: {product: ProductCard}) => {
     const {price,description,image,id,title,category, selected} = productsData.getProductCard(product.id)
     const selectedProduct = {price,description,image,id,title,category, selected};
     modal.render({
-		_content: card.render({
+		modalContent: card.render({
 			title: selectedProduct.title,
             image: selectedProduct.image,
             description: selectedProduct.description,
@@ -105,7 +107,7 @@ events.on('cart: open', () => {
     cart.itemsList = cartsItem;
     cart.setButton(cartsItem.length == 0);
     modal.render({
-        _content: cart.render({
+        modalContent: cart.render({
         total: cartData.total,
         }
     )})
@@ -141,7 +143,7 @@ events.on('order: start', () => {
     paymentForm.clearValidation();
     сontactsForm.clearValidation();
     modal.render({
-        _content: paymentForm.render({
+        modalContent: paymentForm.render({
            buttons: 'disabled',
         })
     })
@@ -154,7 +156,7 @@ events.on('firstStepForm: complete', (data: any) => {
     order._items = cartData.getItemIds();
     order._total = cartData.total;
     modal.render({
-        _content: сontactsForm.render({})
+        modalContent: сontactsForm.render({})
     })
 })
 
@@ -166,7 +168,7 @@ events.on('order: place', (data: any) => {
     baseApi.post<IOrderPost>(`/order/`, order, 'POST')
       .then(() => {
         modal.render({
-        _content: finalOrder.render({
+        modalContent: finalOrder.render({
             _totalCost: cartData.total.toString(),
         })
         }) 
@@ -174,10 +176,8 @@ events.on('order: place', (data: any) => {
         mainPage.cartCounter = cartData.updateCartCounter();
         сontactsForm.setAwaitBtn();
       })
-      .catch((error) => {
-        ///Обработка ошибки
-        console.error(error);
-      });
+      .catch(error => 
+        alert(error.message));
 });
 
 ///Обработка события завершения заказа

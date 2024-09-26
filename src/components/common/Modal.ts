@@ -2,7 +2,7 @@ import { IEvents } from "../base/events";
 import { Component } from "../Component";
 
 export interface IModal {
-  _content: HTMLElement;
+  modalContent: HTMLElement;
 }
 
 export class Modal extends Component<IModal> {
@@ -28,12 +28,11 @@ export class Modal extends Component<IModal> {
   }
 
   ///Сеттер содержимого модалки
-  set _content(value: HTMLElement) {
+  set modalContent(value: HTMLElement) {
     this.content = value;
     const contentContainer = this.container.querySelector('.modal__content');
     if (contentContainer) {
-      contentContainer.innerHTML = '';
-      contentContainer.appendChild(this.content);
+      contentContainer.replaceChildren(this.content);
     }
   }
 
@@ -46,6 +45,7 @@ export class Modal extends Component<IModal> {
 
   ///Закрытие модалки
   close() {
+    this.modalContent = null;
     this.container.classList.remove('modal_active');
     document.removeEventListener('keyup', this.handleEscKeyUp);
     this.events.emit('modal: close');
