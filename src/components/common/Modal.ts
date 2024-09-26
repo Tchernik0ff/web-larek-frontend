@@ -32,6 +32,7 @@ export class Modal extends Component<IModal> {
     this.content = value;
     const contentContainer = this.container.querySelector('.modal__content');
     if (contentContainer) {
+      contentContainer.innerHTML = '';
       contentContainer.replaceChildren(this.content);
     }
   }
